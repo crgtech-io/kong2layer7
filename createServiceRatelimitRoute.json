@@ -1,0 +1,65 @@
+{
+  "input": [
+    {
+      "name": "kong new2",
+      "resolutionPath": "/kong3",
+      "serviceType": "WEB_API",
+      "folderPath": "/",
+      "methodsAllowed": [
+        "GET"
+      ],
+      "policy" : {
+        "code" : {
+ "All": [
+      {
+        "RateLimit": {
+          "counterName": "PRESET(ec2604f64094fe4c)${request.clientid}",
+          "maxRequestsPerSecond": "5",
+          "windowSizeInSeconds": "60"
+        }
+      },
+      {
+        "HttpRouting": {
+          "httpMethod": "GET",
+          "protectedServiceUrl": "https://google.com",
+          "requestHeaderRules": {
+            ".type": "httpPassthroughRuleSet",
+            "forwardAll": true,
+            "rules": [
+              {
+                ".type": "httpPassthroughRule",
+                "name": "Cookie"
+              },
+              {
+                ".type": "httpPassthroughRule",
+                "name": "SOAPAction"
+              }
+            ]
+          },
+          "requestParamRules": {
+            ".type": "httpPassthroughRuleSet",
+            "forwardAll": true,
+            "rules": []
+          },
+          "responseHeaderRules": {
+            ".type": "httpPassthroughRuleSet",
+            "forwardAll": true,
+            "rules": [
+              {
+                ".type": "httpPassthroughRule",
+                "name": "Set-Cookie"
+              }
+            ]
+          },
+          "samlAssertionVersion": 2
+        }
+      }
+    ]
+
+        }
+
+            
+      }
+    }
+  ]
+}
