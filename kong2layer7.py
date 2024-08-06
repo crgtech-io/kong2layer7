@@ -21,6 +21,8 @@ def save_json(data, file_path):
 urllib3.disable_warnings()
 logging.captureWarnings(True)
 
+
+
 # Define the GraphQL query
 query = '''
 mutation setWebApiServices ($input: [L7ServiceInput!]!){
@@ -40,10 +42,8 @@ headers = {
 }
 
 # Define the URL for the GraphQL endpoint
-url = "https://localhost:7443/graphman"
-
-
-
+#url = "https://localhost:7443/graphman"
+url = sys.argv[1]
 
 def extract_service_data(config):
     services = config.get('services', [])
